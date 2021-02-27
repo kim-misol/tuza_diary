@@ -172,8 +172,29 @@ class Post(models.Model):
     def __str__(self):
         return self.postname
 ```
-안의 내용을 알 수 없는 Post Object 대신
-게시글(Post)의 제목(postname)으로 바꾸었다.
+
+안의 내용을 알 수 없는 `Post Object` 대신
+게시글(`Post`)의 제목(`postname`)으로 바꾸었다.
+
+### 포스트 리스트를 보여줄 페이지 생성
+`tuza_diary/posts/views.py`  
+`View`(`post` 함수)가 `Model`(`Post` 게시글)을 가져온다.
+```python
+from django.shortcuts import render
+# View에 Model(Post 게시글) 가져오기
+from .models import Post
+
+# index.html 페이지를 부르는 index 함수
+def index(request):
+    return render(request, 'main/index.html')
+
+# blog.html 페이지를 부르는 blog 함수
+def blog(request):
+    # 모든 Post를 가져와 postlist에 저장합니다
+    postlist = Post.objects.all()
+    # post.html 페이지를 열 때, 모든 Post인 postlist도 같이 가져옵니다 
+    return render(request, 'main/post.html', {'postlist':postlist})
+```
 ---
 
 # psql
