@@ -13,6 +13,7 @@ python manage.py runserver
 # trouble shooting
 1. pipfile 필요한가?
 
+---
 
 # Django
 ## 장고 프로젝트 시작
@@ -75,6 +76,25 @@ urlpatterns = [
     path('', include('main.urls')),
 ]
 ```
+
+[post.html 추가](https://wikidocs.net/91420)
+
+## `Model` 만들기
+장고에서는 `Model`을 지원해준다.
+이 모델을 이용해 게시판에서 각각의 게시글이 데이터베이스에 어떻게 저장될지를 정해준다.
+
+장고가 이 모델을 데이터베이스에 넣어 저장할 수 있도록 해준다.
+즉, `django`의 db에 `migrate`해준다.
+일반적인 경우 `model.py`를 수정했다면 바로바로 `migrate`해주어서 우리가 만든 `model`을 데이터베이스에 저장한다.
+
+### `Ctrl + C`를 눌러 웹서버를 종료 후 migration
+```bash
+python manage.py makemigrations 
+python manage.py migrate
+```
+
+
+---
 
 # psql
 
