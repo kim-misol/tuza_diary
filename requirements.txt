@@ -1,0 +1,5 @@
+django
+django_heroku
+psycopg2-binary
+validate_email
+websockets
