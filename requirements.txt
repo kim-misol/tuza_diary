@@ -3,3 +3,8 @@ django_heroku
 psycopg2-binary
 validate_email
 websockets
+finance-datareader
+BeautifulSoup4
+trading_calendars
+plotly
+psutil
