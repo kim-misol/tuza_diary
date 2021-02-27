@@ -1,11 +1,22 @@
-# tuza_diary
+# TUZA Diary
+주식 또는 가상암호화폐 투자 다이어리
 
-# installation
+# Requirements
+You need to install three packages on your machine:
+- Node.js: The JavaScript runtime that you will use to run your frontend project.
+- Python 3.8+: A recent Python 3 interpreter to run the Flask backend on.
+- PostgreSQL 12.5+
+
+# Clone the sources
+```bash
+git clone https://github.com/kim-misol/tuza_diary.git
+```
+# Installation
 ```angular2html
 pip install -r requirements.txt
 ```
 
-# run application
+# Run Application
 ```
 python manage.py runserver
 ```
