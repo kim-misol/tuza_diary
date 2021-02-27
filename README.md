@@ -180,21 +180,44 @@ class Post(models.Model):
 `tuza_diary/posts/views.py`  
 `View`(`post` 함수)가 `Model`(`Post` 게시글)을 가져온다.
 ```python
-from django.shortcuts import render
-# View에 Model(Post 게시글) 가져오기
-from .models import Post
-
-# index.html 페이지를 부르는 index 함수
+# index.html 페이지를 부르는 index 함수 (post list를 보여준다)
 def index(request):
-    return render(request, 'main/index.html')
-
-# blog.html 페이지를 부르는 blog 함수
-def blog(request):
-    # 모든 Post를 가져와 postlist에 저장합니다
     postlist = Post.objects.all()
-    # post.html 페이지를 열 때, 모든 Post인 postlist도 같이 가져옵니다 
-    return render(request, 'main/post.html', {'postlist':postlist})
+    # blog.html 페이지를 열 때, 모든 Post인 postlist도 같이 가져옵니다
+    return render(request, 'main/index.html', {'postlist': postlist})
 ```
+
+### 포스트 세부 페이지
+포스트마다 `post` 세부 페이지를 만들어보자.  
+`tuza_diary/posts/views.py`  
+`post.html`에서 포스트-세부페이지에 특정 post 1개만 가져오자.
+```python
+# post.html 페이지를 부르는 post 함수
+def post(request, post_id):
+    # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
+    post = Post.objects.get(pk=post_id)
+    # post.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
+    return render(request, 'main/post.html', {'post': post})
+```
+
+`tuza_diary/posts/urls.py`
+
+첫번째 포스트 세부페이지 들어가기
+
+```python
+from django.contrib import admin
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('', index, name='index'),
+    path('post/', post, name='post'),
+    # URL:80/blog/숫자로 접속하면 게시글-세부페이지(posting)
+    # path('blog/<int:pk>', post, name="posting"),
+]
+```
+
+
 ---
 
 # psql
