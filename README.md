@@ -93,7 +93,76 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+### Admin에 권한
+관리자(admin)가 게시글(Post)에 접근할 권한을 준다.
+게시글 게시, 삭제, 수정, 저장 등 여러 작업을 할 수 있게 해준다.
 
+`tuza_diary/posts/admin.py`
+```python
+from django.contrib import admin
+# 게시글(Post) Model을 불러옵니다
+from .models import Post
+
+# Register your models here.
+# 관리자(admin)가 게시글(Post)에 접근 가능
+admin.site.register(Post)
+```
+
+하지만 admin계정이 없어서 확인할 수가 없다. 관리자 계정을 만들어보자!
+
+### Superuser 만들기
+`Superuser`는 `django` 프로젝트의 모든 `app` 및 `object`를 관리하는 계정이다.
+`manage.py`를 통해 `Superuser`계정이 생성되며
+`username`, `email address`, 그리고 강한 `password`가 필요하다.
+
+for mac:
+```bash
+python3 manage.py createsuperuser
+```
+for windows:
+```bash
+python manage.py createsuperuser
+```
+아래와 같이 Superuser 계정을 생성
+```
+Username (leave blank to use '...'): 
+Email address: 
+Password:
+Password (again):
+```
+서버를 키고 생성한 `Superuser` 계정을 확인한다.
+
+for mac:
+```bash
+python3 manage.py runserver
+```
+for windows:
+```bash
+python manage.py runserver
+```
+
+`http://자신의URL:8000/admin`으로 접속한다.
+`Superuser`의 아이디와 비밀번호를 입력해 관리자 페이지로 들어간다.
+
+### Post 작성 시 post name 으로 post 제목 사용 
+현재 코드에서 게시글을 작성하면
+게시글 제목이 나오지 않고 Post `object(1), (2)`로 나온다.
+이를 `postname`이 `Post object` 대신 들어가도록 개선해보자.
+이땐 게시글(`Post`)의` model`을 개선하자.
+
+`tuza_diary/posts/models.py`
+
+```python
+from django.db import models
+
+class Post(models.Model):
+    ...
+
+    def __str__(self):
+        return self.postname
+```
+안의 내용을 알 수 없는 Post Object 대신
+게시글(Post)의 제목(postname)으로 바꾸었다.
 ---
 
 # psql
