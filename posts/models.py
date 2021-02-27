@@ -25,3 +25,5 @@ class Post(Model):
     to_buy_price = FloatField(null=True)
     to_buy_date = DateField(null=True)
 
+    def __str__(self):
+        return self.postname
