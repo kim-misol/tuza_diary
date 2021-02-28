@@ -3,6 +3,12 @@ from django.shortcuts import render
 import websockets
 import asyncio
 from .models import Post
+from datetime import datetime
+
+from .graphs import draw_candle_with_indicator
+from .trading_indicators import bollinger_band, data_settings
+
+from plotly.offline import plot
 
 
 # index.html 페이지를 부르는 index 함수 (post list를 보여준다)
@@ -12,17 +18,24 @@ def index(request):
     return render(request, 'main/index.html', {'postlist': postlist})
 
 
-# post.html 페이지를 부르는 post 함수
-def _post(request):
-    return render(request, 'main/post.html')
+# 해당 종목의 데이터를 가져와서 보여주기
+def get_data(code):
+    # 종목별 데이터 언제부터 가져올지 설정
+    coin_df = data_settings(code=code, start=datetime(2018, 1, 1))
+
+    fig = draw_candle_with_indicator(coin_df, code)
+    plt_div = plot(fig, output_type='div')
+
+    return plt_div
 
 
 # post.html 페이지를 부르는 post 함수
 def post(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
     post = Post.objects.get(pk=pk)
+    plt_div = get_data(post.code)
     # post.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
-    return render(request, 'main/post.html', {'post': post})
+    return render(request, 'main/post.html', {'post': post, 'plt_div': plt_div})
 
 
 # bithumb websocket api
