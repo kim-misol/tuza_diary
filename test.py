@@ -4,8 +4,8 @@ from datetime import datetime
 import FinanceDataReader as fdr
 import numpy as np
 
-from library.graphs import draw_candle_with_indicator
-from library.trading_indicators import bollinger_band
+from posts.graphs import draw_candle_with_indicator
+from posts.trading_indicators import bollinger_band
 
 
 def data_settings(code, start=datetime(2020, 1, 1), end=datetime.today()):
