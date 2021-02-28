@@ -26,3 +26,4 @@ htmlcov/
 # Add
 instance/
 venv/
+settings.py
