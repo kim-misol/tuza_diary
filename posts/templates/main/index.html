@@ -5,14 +5,13 @@
     <title>투자 다이어리</title>
 </head>
 <body>
-    <h1>게시판 페이지입니다</h1>
-    <!-- 게시판(postlist)의 게시글(list)을 하나씩 보여줍니다 -->
-    <table>
-    {% for list in postlist %}
-        <ul>
-            <li>{{list.postname}} ({{list.market}}: {{list.code_name}})</li>
-        </ul>
-    {% endfor %}
-    </table>
-</body>
+    <h1>게시판 페이지</h1>
+        <table>
+        {% for list in postlist %}
+            <ul>
+                <li><a href="post/{{list.pk}}">{{list.postname}} ({{list.market}}: {{list.code_name}})</a></li>
+            </ul>
+        {% endfor %}
+        </table>
+    </body>
 </html>

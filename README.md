@@ -193,9 +193,9 @@ def index(request):
 `post.html`에서 포스트-세부페이지에 특정 post 1개만 가져오자.
 ```python
 # post.html 페이지를 부르는 post 함수
-def post(request, post_id):
+def post(request, pk):
     # 게시글(Post) 중 pk(primary_key)를 이용해 하나의 게시글(post)를 검색
-    post = Post.objects.get(pk=post_id)
+    post = Post.objects.get(pk=pk)
     # post.html 페이지를 열 때, 찾아낸 게시글(post)을 post라는 이름으로 가져옴
     return render(request, 'main/post.html', {'post': post})
 ```
@@ -210,13 +210,40 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('post/', post, name='post'),
-    # URL:80/blog/숫자로 접속하면 게시글-세부페이지(posting)
-    # path('blog/<int:pk>', post, name="posting"),
+    # URL:80/blog/숫자로 접속하면 게시글-세부페이지(post)
+    path('post/<int:pk>', post, name='post'),
 ]
 ```
+개별 게시글 상세 페이지를 보여준다.
 
+
+
+
+### post.html에서 posting.html 링크
+post 게시판에서 게시글의 제목만 남기고,
+제목을 클릭하면 post의 세부페이지로 가도록 만들자.  
+`tuza_diary/posts/templates/main/index.html`  
+`<li>`태그에 `<a>`태그를 넣어 이동할 수 있도록 하자.
+
+```html
+<html>
+    <head>
+       <title>투자 다이어리</title>
+    </head>
+    <body>
+        <h1>게시판 페이지</h1>
+        <table>
+        {% for list in postlist %}
+            <ul>
+                <li><a href="{{list.pk}}/">{{list.postname}} ({{list.market}}: {{list.code_name}})</a></li>
+            </ul>
+        {% endfor %}
+        </table>
+    </body>
+</html>
+```
 
 ---
 
@@ -234,13 +261,13 @@ urlpatterns = [
     | \h | help | 
    
 1. Create Database  
-    `CREATE DATABASE schedulbot`
+    `CREATE DATABASE postgres`
    
 1. Check database created  
     `\l`
    
-1. Access to schedulebot DB  
-    `\c schedulebot`
+1. Access to postgres DB  
+    `\c postgres`
    
 1. Check Table created  
     `\dt`  
