@@ -5,23 +5,23 @@
     <title>Post List</title>
 </head>
 <body>
-주식 / 코인 dropdown </br>
-종목 dropdown</br>
-</br>
-복기차트</br>
-</br>
-얼마에 샀는지</br>
-언제 샀는지 date picker</br>
-왜 샀는지 textarea</br>
-</br>
-얼마에 팔았는지</br>
-언제 팔았는지 date picker</br>
-왜 팔았는지 textarea</br>
-</br>
-언제 팔건지 date picker</br>
-언제 다시 살건지 date picker</br>
+<!--
+주식 / 코인 dropdown
+종목 dropdown
 
+복기차트
 
+얼마에 샀는지
+언제 샀는지 date picker
+왜 샀는지 textarea
+
+얼마에 팔았는지
+언제 팔았는지 date picker
+왜 팔았는지 textarea
+
+언제 팔건지 date picker
+언제 다시 살건지 date picker
+-->
 
 <h1>{{post.postname}}</h1>
 <p>{{post.market}}</p>
@@ -31,6 +31,10 @@
 <p>{{post.buy_price}}</p>
 <p>{{post.buy_date}}</p>
 <p>{{post.buy_memo}}</p>
+
+{% autoescape off %}
+{{ plt_div }}
+{% endautoescape %}
 
 <a href="/">목록</a>
 </body>
